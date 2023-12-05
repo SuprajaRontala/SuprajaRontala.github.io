@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        #searchInput {
+            padding: 5px;
+        }
+
+        #sortSelect {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Android Products</h1>
+    </header>
+
+    <main>
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <select id="sortSelect">
+            <option value="name">Sort by Name</option>
+            <option value="price">Sort by Price</option>
+        </select>
+
+        <div id="productsContainer">
+            <!-- Product items will be dynamically added here using JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Android Products</p>
+    </footer>
+
+    <script>
+        // Sample product data (replace this with actual data from your backend)
+        const products = [
+            { name: 'Product 1', price: 199.99, description: 'Lorem ipsum dolor sit amet.' },
+            { name: 'Product 2', price: 149.99, description: 'Consectetur adipiscing elit.' },
+            // Add more products as needed
+        ];
+
+        // Function to render products
+        function renderProducts() {
+            const productsContainer = document.getElementById('productsContainer');
+            productsContainer.innerHTML = '';
+
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <p>${product.description}</p>
+                    <p>${product.price}</p>
+                    <button>Add to Cart</button>
+                `;
+                productsContainer.appendChild(productDiv);
+            });
+        }
+
+        // Event listeners for search and sort
+        document.getElementById('searchInput').addEventListener('input', renderProducts);
+
+        document.getElementById('sortSelect').addEventListener('change', () => {
+            const sortBy = document.getElementById('sortSelect').value;
+            if (sortBy === 'name') {
+                products.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'price') {
+                products.sort((a, b) => a.price - b.price);
+            }
+            renderProducts();
+        });
+
+        // Initial render
+        renderProducts();
+    </script>
+</body>
+</html>
